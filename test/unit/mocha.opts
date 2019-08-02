@@ -1,0 +1,4 @@
+--reporter spec
+--slow 5000
+--timeout 5000
+--exit

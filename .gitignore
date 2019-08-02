@@ -76,3 +76,6 @@ docs
 *.key
 *.csr
 *.cert
+
+# package-lock.json
+package-lock.json
