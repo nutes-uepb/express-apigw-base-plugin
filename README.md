@@ -1,16 +1,18 @@
-# eg-plugin-ocariot
+# express-apigw-base-plugin
 
 This plugin adds custom policies to the Express Gateway. For more information about Express Gateway plug-ins, see the documentation [Express Gateway - Plugins](https://www.express-gateway.io/docs/plugins/)
 
 ### How to manually install 
-1. Add "eg-plugin-ocariot": "file: eg-plugin-ocariot" the project dependencies in package.json
-2. Run "npm install" for the plugin to be added installed in the node_modules folder
-3. Add the installed plugin to the gateway system settings in the file "system.config.yml". As in the example below:
+1. Execute:
+```
+npm install https://github.com/nutes-uepb/express-apigw-base-plugin --save
+```
+2. Add the installed plugin to the gateway system settings in the file "system.config.yml". As in the example below:
 
 ```javascript
 plugins:
-  eg-plugin-ocariot:
-    package: 'eg-plugin-ocariot/manifest.js'
+  express-apigw-base-plugin:
+    package: 'express-apigw-base-plugin/manifest.js'
 ```
 4. Okay, done that it is already possible to use the policies in "gateway.config.yml"
 
@@ -19,7 +21,7 @@ plugins:
 Plugins are bundled as Node modules and distributed through npm. The Express Gateway CLI is used to install and configure plugins.
 Installed plugins are declared in the system.config.yml and are then ready to be used. Express Gateway CLI is a convenient way to install and enable plugins.
 ```bash
-$ eg plugin install name-of-the-plugin-published-in-npm
+$ eg plugin install https://github.com/nutes-uepb/express-apigw-base-plugin
 ```
 
 ### Description of policies
