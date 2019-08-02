@@ -41,10 +41,6 @@ module.exports = function (actionParams, authServiceTest, localServicesTest) {
 
             return res.status(200).send(authResponse.data)
         } catch (err) {
-            /* Report in logs that JWT has an invalid signature */
-            if (err.name === 'JsonWebTokenError' && err.message === 'invalid signature') {
-                console.error(`[auth-policy] error: Invalid JWT Signature!`)
-            }
             if (err.response && err.response.data) {
                 return res.status(err.response.status).send(err.response.data)
             }
