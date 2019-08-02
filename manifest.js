@@ -16,8 +16,8 @@ module.exports = {
         pluginContext.registerPolicy(require('./policies/delete-user/delete-user-policy'))
         pluginContext.registerCondition(require('./conditions/regex-path-method'))
         pluginContext.registerGatewayRoute(require('./routes/middlewares'))
-        if (apiReferencePathFile && fs.existsSync(apiReferencePathFile)) {
-            pluginContext.registerGatewayRoute(require('.' + apiReferencePathFile))
+        if (fs.existsSync(apiReferencePathFile)) {
+            pluginContext.registerGatewayRoute(require(apiReferencePathFile))
         }
     },
     // this is for CLI to automatically add to "policies" whitelist in gateway.config
