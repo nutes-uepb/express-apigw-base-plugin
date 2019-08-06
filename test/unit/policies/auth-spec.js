@@ -70,7 +70,7 @@ describe('Policy: auth-policy', () => {
                 const next = sinon.spy()
 
                 const authService = {
-                    auth() {
+                    post() {
                     }
                 }
                 const fakeResponseAuthService = {
@@ -80,7 +80,7 @@ describe('Policy: auth-policy', () => {
                     }
                 }
                 const promiseAuthService = Promise.resolve(fakeResponseAuthService)
-                const auth = sinon.stub(authService, 'auth')
+                const auth = sinon.stub(authService, 'post')
                 auth.withArgs('http://localhost:3000/users/auth', {
                     email: 'email@mail.com',
                     password: 'password'
@@ -90,7 +90,7 @@ describe('Policy: auth-policy', () => {
                     username: 'FakeName'
                 }
 
-                const services = {
+                const fakeGatewayUser = {
                     user: {
                         find() {
                         },
@@ -98,12 +98,26 @@ describe('Policy: auth-policy', () => {
                         }
                     }
                 }
+                const fakeJwt = {
+                    verify(accessToken, secret, optios) {
+                        return Promise.resolve({
+                            'sub': '5d41f834b42c17302305e21e',
+                            'sub_type': 'admin',
+                            'iss': 'haniot',
+                            'iat': 1564770931,
+                            'scopes': 'admins:create admins:read admins:readAll admins:update admins:delete healthprofessionals:create healthprofessionals:read healthprofessionals:readAll healthprofessionals:update healthprofessionals:delete patients:create patients:read patients:readAll patients:update patients:delete pilots:create pilots:readAll pilots:read pilots:update pilots:delete measurements:read measurements:readAll devices:read devices:readAll forms:read forms:readAll evaluations:read evaluations:readAll notifications:create notifications:read notifications:readAll notifications:delete',
+                            'email_verified': false,
+                            'change_password': false,
+                            'exp': 1564857331
+                        })
+                    }
+                }
                 const promiseServiceInsert = Promise.resolve(fakeUserInsert)
                 const promiseServicesFind = Promise.resolve(false)
 
-                const find = sinon.stub(services.user, 'find')
+                const find = sinon.stub(fakeGatewayUser.user, 'find')
                 find.withArgs('5d41f834b42c17302305e21e').returns(promiseServicesFind)
-                const insert = sinon.stub(services.user, 'insert')
+                const insert = sinon.stub(fakeGatewayUser.user, 'insert')
                 insert.withArgs().returns(promiseServiceInsert)
 
                 const actionParams = {
@@ -112,7 +126,7 @@ describe('Policy: auth-policy', () => {
                     issuer: 'haniot'
                 }
 
-                md_policy = policy.policy(actionParams, authService, services)
+                md_policy = policy.policy(actionParams, authService, {fakeGatewayUser, fakeJwt})
                 return md_policy(req, res, next)
                     .then(() => {
                         sinon.assert.calledOnce(auth)
@@ -143,7 +157,7 @@ describe('Policy: auth-policy', () => {
                 const next = {}
 
                 const authService = {
-                    auth() {
+                    post() {
                     }
                 }
                 const fakeResponseAuthService = {
@@ -153,7 +167,7 @@ describe('Policy: auth-policy', () => {
                     }
                 }
                 const promiseAuthService = Promise.resolve(fakeResponseAuthService)
-                const auth = sinon.stub(authService, 'auth')
+                const auth = sinon.stub(authService, 'post')
                 auth.withArgs('http://localhost:3000/users/auth', {
                     email: 'email@mail.com',
                     password: 'password'
@@ -163,7 +177,7 @@ describe('Policy: auth-policy', () => {
                     username: 'FakeName'
                 }
 
-                const services = {
+                const fakeGatewayUser = {
                     user: {
                         find() {
                         },
@@ -171,12 +185,26 @@ describe('Policy: auth-policy', () => {
                         }
                     }
                 }
+                const fakeJwt = {
+                    verify(accessToken, secret, optios) {
+                        return Promise.resolve({
+                            'sub': '5d41f834b42c17302305e21e',
+                            'sub_type': 'admin',
+                            'iss': 'haniot',
+                            'iat': 1564770931,
+                            'scopes': 'admins:create admins:read admins:readAll admins:update admins:delete healthprofessionals:create healthprofessionals:read healthprofessionals:readAll healthprofessionals:update healthprofessionals:delete patients:create patients:read patients:readAll patients:update patients:delete pilots:create pilots:readAll pilots:read pilots:update pilots:delete measurements:read measurements:readAll devices:read devices:readAll forms:read forms:readAll evaluations:read evaluations:readAll notifications:create notifications:read notifications:readAll notifications:delete',
+                            'email_verified': false,
+                            'change_password': false,
+                            'exp': 1564857331
+                        })
+                    }
+                }
                 const promiseServiceInsert = Promise.resolve(fakeUserInsert)
                 const promiseServicesFind = Promise.resolve(fakeUserInsert)
 
-                const find = sinon.stub(services.user, 'find')
+                const find = sinon.stub(fakeGatewayUser.user, 'find')
                 find.withArgs('5d41f834b42c17302305e21e').returns(promiseServicesFind)
-                const insert = sinon.stub(services.user, 'insert')
+                const insert = sinon.stub(fakeGatewayUser.user, 'insert')
                 insert.withArgs().returns(promiseServiceInsert)
 
                 const actionParams = {
@@ -185,7 +213,7 @@ describe('Policy: auth-policy', () => {
                     issuer: 'haniot'
                 }
 
-                md_policy = policy.policy(actionParams, authService, services)
+                md_policy = policy.policy(actionParams, authService, {fakeGatewayUser, fakeJwt})
                 return md_policy(req, res, next)
                     .then(() => {
                         sinon.assert.calledOnce(auth)
@@ -217,7 +245,7 @@ describe('Policy: auth-policy', () => {
                 const next = {}
 
                 const authService = {
-                    auth() {
+                    post() {
                     }
                 }
                 const fakeResponseAuthService = {
@@ -229,7 +257,7 @@ describe('Policy: auth-policy', () => {
                     }
                 }
                 const promiseAuthService = Promise.reject(fakeResponseAuthService)
-                const auth = sinon.stub(authService, 'auth')
+                const auth = sinon.stub(authService, 'post')
                 auth.withArgs('http://localhost:3000/users/auth', {
                     email: 'email@mail.com',
                     password: 'password'

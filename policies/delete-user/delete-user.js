@@ -5,7 +5,7 @@
  */
 
 let gatewayService = require('express-gateway/lib/services').user
-let userService = require('../../services/user-service')
+let userService = require('../../services/http-client')
 
 module.exports = function (actionParams, userServiceGwTest, axiosTest) {
     // Test context. Mocks serServiceGwTest and axiosTest

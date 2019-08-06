@@ -11,7 +11,7 @@ const instance = axios.create({
 })
 
 module.exports = {
-    auth: function (url, credentials) {
+    post: function (url, credentials) {
         return instance.post(url, credentials)
     },
 
