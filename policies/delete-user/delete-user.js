@@ -23,7 +23,7 @@ module.exports = function (actionParams, userServiceGwTest, axiosTest) {
             const responseAccount = await userService.delete(`${actionParams.urlDeleteService}/${userId}`)
 
             // 2. Find user at gateway and delete or skip if there is not.
-            deleteUserGateway(userId)
+            await deleteUserGateway(userId)
 
             return res.status(responseAccount.status).send(responseAccount.data)
         } catch (err) {
