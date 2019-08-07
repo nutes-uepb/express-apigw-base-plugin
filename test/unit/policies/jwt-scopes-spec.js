@@ -39,7 +39,7 @@ describe('Policy: jwtScopes-policy', () => {
                 const req = {
                     user: {
                         sub: '5b996a956cdde90039922dde',
-                        iss: 'haniot',
+                        iss: 'issuer',
                         scope: 'users:readAll'
                     },
                     egContext: {
@@ -64,7 +64,7 @@ describe('Policy: jwtScopes-policy', () => {
                 const req = {
                     user: {
                         sub: '5b996a956cdde90039922dde',
-                        iss: 'haniot',
+                        iss: 'issuer',
                         scope: 'users:readAll'
                     },
                     egContext: {

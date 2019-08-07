@@ -51,7 +51,7 @@ describe('Policy: jwt-policy', () => {
             }
             const actionParams = {
                 secretOrPublicKey: fakeCert,
-                issuer: 'haniot'
+                issuer: 'issuer'
             }
             const testContext = {
                 services: services
@@ -107,7 +107,7 @@ describe('Policy: jwt-policy', () => {
                             }
                             this.strategy._verify({
                                 sub: '5d41f834b42c17302305e21e',
-                                iss: 'haniot',
+                                iss: 'issuer',
                                 iat: 1564857331,
                                 scope: 'admins:create admins:read admins:readAll'
                             }, done)
@@ -117,7 +117,7 @@ describe('Policy: jwt-policy', () => {
 
                 const actionParams = {
                     secretOrPublicKey: fakeCert,
-                    issuer: 'haniot'
+                    issuer: 'issuer'
                 }
 
                 const testContext = {
@@ -189,7 +189,7 @@ describe('Policy: jwt-policy', () => {
                             this.strategy._verify({
                                 sub: '5d41f834b42c17302305e21e',
                                 sub_type: 'admin',
-                                iss: 'haniot',
+                                iss: 'issuer',
                                 iat: 1542652211107,
                                 scope: 'users:readAll2'
                             }, done)
@@ -199,7 +199,7 @@ describe('Policy: jwt-policy', () => {
 
                 const actionParams = {
                     secretOrPublicKey: fakeCert,
-                    issuer: 'haniot'
+                    issuer: 'issuer'
                 }
 
                 const testContext = {
@@ -271,7 +271,7 @@ describe('Policy: jwt-policy', () => {
 
                 const actionParams = {
                     secretOrPublicKey: fakeCert,
-                    issuer: 'haniot'
+                    issuer: 'issuer'
                 }
 
                 const testContext = {

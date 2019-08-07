@@ -48,7 +48,7 @@ describe('Policy: auth-policy', () => {
         it('should return a function(req,res,next)', () => {
             const actionParams = {
                 secretOrPublicKey: fakeCert,
-                issuer: 'haniot',
+                issuer: 'issuer',
                 urlAuthService: 'http://localhost:5000'
             }
             assert.typeOf(policy.policy(actionParams), 'function', '"policy" does not return a function')
@@ -103,7 +103,7 @@ describe('Policy: auth-policy', () => {
                         return Promise.resolve({
                             'sub': '5d41f834b42c17302305e21e',
                             'sub_type': 'admin',
-                            'iss': 'haniot',
+                            'iss': 'issuer',
                             'iat': 1564770931,
                             'scopes': 'admins:create admins:read admins:readAll admins:update admins:delete healthprofessionals:create healthprofessionals:read healthprofessionals:readAll healthprofessionals:update healthprofessionals:delete patients:create patients:read patients:readAll patients:update patients:delete pilots:create pilots:readAll pilots:read pilots:update pilots:delete measurements:read measurements:readAll devices:read devices:readAll forms:read forms:readAll evaluations:read evaluations:readAll notifications:create notifications:read notifications:readAll notifications:delete',
                             'email_verified': false,
@@ -123,7 +123,7 @@ describe('Policy: auth-policy', () => {
                 const actionParams = {
                     urlAuthService: 'http://localhost:3000/users/auth',
                     secretOrPublicKey: fakeCert,
-                    issuer: 'haniot'
+                    issuer: 'issuer'
                 }
 
                 md_policy = policy.policy(actionParams, authService, {fakeGatewayUser, fakeJwt})
@@ -190,7 +190,7 @@ describe('Policy: auth-policy', () => {
                         return Promise.resolve({
                             'sub': '5d41f834b42c17302305e21e',
                             'sub_type': 'admin',
-                            'iss': 'haniot',
+                            'iss': 'issuer',
                             'iat': 1564770931,
                             'scopes': 'admins:create admins:read admins:readAll admins:update admins:delete healthprofessionals:create healthprofessionals:read healthprofessionals:readAll healthprofessionals:update healthprofessionals:delete patients:create patients:read patients:readAll patients:update patients:delete pilots:create pilots:readAll pilots:read pilots:update pilots:delete measurements:read measurements:readAll devices:read devices:readAll forms:read forms:readAll evaluations:read evaluations:readAll notifications:create notifications:read notifications:readAll notifications:delete',
                             'email_verified': false,
@@ -210,7 +210,7 @@ describe('Policy: auth-policy', () => {
                 const actionParams = {
                     urlAuthService: 'http://localhost:3000/users/auth',
                     secretOrPublicKey: fakeCert,
-                    issuer: 'haniot'
+                    issuer: 'issuer'
                 }
 
                 md_policy = policy.policy(actionParams, authService, {fakeGatewayUser, fakeJwt})
@@ -286,7 +286,7 @@ describe('Policy: auth-policy', () => {
                 const actionParams = {
                     urlAuthService: 'http://localhost:3000/users/auth',
                     secretOrPublicKey: fakeCert,
-                    issuer: 'haniot'
+                    issuer: 'issuer'
                 }
 
                 md_policy = policy.policy(actionParams, authService, services)

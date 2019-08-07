@@ -27,7 +27,6 @@ module.exports = function (actionParams, testContext) {
     }, (jwtPayload, done) => {
         // At this point both the jwt signature, issuer and experation were validated
         // In addition, we have the jwt payload decoded and we can access its attributes
-        // console.log(`JWT payload: ${JSON.stringify(jwtPayload)}`);
 
         // User validation. We expect to receive the username in the jwt 'sub' field
         if (!jwtPayload.sub) return done(null, false)
@@ -77,7 +76,7 @@ module.exports = function (actionParams, testContext) {
                 'redirect_link': '/auth'
             })
 
-            if (info && info.message === 'jwt issuer invalid. expected: ocariot') return res.status(401).send({
+            if (info && info.message === 'jwt issuer invalid.') return res.status(401).send({
                 'code': 401,
                 'message': 'UNAUTHORIZED',
                 'description': 'Authentication failed because the access token contains invalid parameters.',
