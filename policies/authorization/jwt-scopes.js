@@ -10,9 +10,9 @@ module.exports = function (actionParams) {
 
         return function (req, res, next) {
             if (expectedScopes.length === 0) return next()
-            if (!req.user || typeof req.user.scopes !== 'string') return error(res)
+            if (!req.user || typeof req.user.scope !== 'string') return error(res)
 
-            const scopes = req.user.scopes.split(' ')
+            const scopes = req.user.scope.split(' ')
             const allowed = expectedScopes.some(scope => scopes.indexOf(scope) !== -1)
 
             return allowed ? next() : error(res)

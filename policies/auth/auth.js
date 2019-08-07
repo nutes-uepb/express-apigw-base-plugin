@@ -1,9 +1,9 @@
 /**
  * Login Policy
  */
-const jwt = require('jsonwebtoken')
+let jwt = require('jsonwebtoken')
 const fs = require('fs')
-let userService = require('../../services/user-service')
+let userService = require('../../services/http-client')
 let gatewayService = require('express-gateway/lib/services')
 
 module.exports = function (actionParams, authServiceTest, localServicesTest) {
@@ -11,12 +11,13 @@ module.exports = function (actionParams, authServiceTest, localServicesTest) {
         // Test context, Mocks authService and services.
         if (authServiceTest && localServicesTest) {
             userService = authServiceTest
-            gatewayService = localServicesTest
+            gatewayService = localServicesTest.fakeGatewayUser
+            jwt = localServicesTest.fakeJwt
         }
 
         try {
             // 1. Run authentication on the account-service
-            const authResponse = await userService.auth(actionParams.urlAuthService, req.body)
+            const authResponse = await userService.post(actionParams.urlAuthService, req.body)
             const accessToken = authResponse.data.access_token
 
             // 2. Read JWT public key
@@ -41,10 +42,6 @@ module.exports = function (actionParams, authServiceTest, localServicesTest) {
 
             return res.status(200).send(authResponse.data)
         } catch (err) {
-            /* Report in logs that JWT has an invalid signature */
-            if (err.name === 'JsonWebTokenError' && err.message === 'invalid signature') {
-                console.error(`[auth-policy] error: Invalid JWT Signature!`)
-            }
             if (err.response && err.response.data) {
                 return res.status(err.response.status).send(err.response.data)
             }
