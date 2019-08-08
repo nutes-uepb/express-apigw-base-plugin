@@ -5,11 +5,11 @@
 module.exports = {
     name: 'regex-path-method',
     handler: function (req, conditionConfig) {
-        const regex = new RegExp(conditionConfig.regexpath);
+        const regex = new RegExp(conditionConfig.regexPath)
         if (conditionConfig.method) {
-            return (regex.test(req.url) && req.method === conditionConfig.method);
+            return (regex.test(req.url) && req.method === conditionConfig.method)
         }
-        return regex.test(req.url);
+        return regex.test(req.url)
     },
     schema: {
         $id: 'http://express-gateway.io/schemas/conditions/regex-path-method.json',
@@ -24,4 +24,4 @@ module.exports = {
         },
         required: ['regexPath']
     }
-};
+}
