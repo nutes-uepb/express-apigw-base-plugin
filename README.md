@@ -41,3 +41,7 @@ $ eg plugin install https://github.com/nutes-uepb/express-apigw-base-plugin
     - issuer: Valid JWT token issuer. (ie 'myapp')
 * jwtScopes-policy: Performs the validation of the necessary scopes in the requests. Remembering that each scope must be configuring in each apiPublica path. In case of multiple scopes, the policy verifies the existence of at least one of the scopes.
   + No configuration parameters
+* recaptcha-policy: Performs user response validation via the reCaptcha Validation API (https://www.google.com/recaptcha/api/siteverify)
+  + Configuration parameters:    
+    - serverKey: String with the secret key provided by reCaptcha. (ie '6L71Sa8SAAsAAPGsl5pHs4hEdT49prH4Au0toPa_') To learn more visit: https://developers.google.com/recaptcha/intro#overview
+    - recaptchaResponse: Template string with reCaptcha's response. (ie '$ {req.body.recaptchaResponse}')

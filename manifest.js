@@ -14,6 +14,7 @@ module.exports = {
         pluginContext.registerPolicy(require('./policies/auth/auth-policy'))
         pluginContext.registerPolicy(require('./policies/body-parser/body-parser-policy'))
         pluginContext.registerPolicy(require('./policies/delete-user/delete-user-policy'))
+        pluginContext.registerPolicy(require('./policies/recaptcha/recaptcha-policy'))
         pluginContext.registerCondition(require('./conditions/regex-path-method'))
         pluginContext.registerGatewayRoute(require('./routes/middlewares'))
         if (fs.existsSync(apiReferencePathFile)) {
@@ -21,5 +22,5 @@ module.exports = {
         }
     },
     // this is for CLI to automatically add to "policies" whitelist in gateway.config
-    policies: ['jwt-policy', 'jwtScopes-policy', 'auth-policy', 'body-parser-policy', 'delete-user-policy']
+    policies: ['jwt-policy', 'jwtScopes-policy', 'auth-policy', 'body-parser-policy', 'delete-user-policy', 'recaptcha-policy']
 }
