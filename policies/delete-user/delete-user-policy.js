@@ -1,6 +1,5 @@
 /**
- * Delte user gateway policy
- *
+ * Delete user gateway policy
  */
 module.exports = {
     name: 'delete-user-policy',

@@ -1,6 +1,5 @@
 /**
  * Recaptcha Policy
- *
  */
 module.exports = {
     name: 'recaptcha-policy',
