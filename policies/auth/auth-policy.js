@@ -1,6 +1,5 @@
 /**
  * Login Policy
- *
  */
 module.exports = {
     name: 'auth-policy',

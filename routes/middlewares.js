@@ -1,6 +1,6 @@
 'use strict'
 
-const express = require('express')
+const helmet = require('helmet')
 const cors = require('cors')
 const PORT_HTTPS = process.env.PORT_HTTPS
 
@@ -8,6 +8,8 @@ const PORT_HTTPS = process.env.PORT_HTTPS
  * File to configuration globals middlewares
  */
 module.exports = function (app) {
+    app.use(helmet())
+
     app.use(cors({
         origin: '*',
         methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'HEADER', 'OPTIONS'],
@@ -17,10 +19,9 @@ module.exports = function (app) {
         preflightContinue: false,
         optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
     }))
-    app.use(express.static('assets', {dotfiles: 'allow'}))
+
 
     // Redirect HTTP to HTTPS
-    app.enable('trust proxy')
     app.use(function (req, res, next) {
         if (req.secure) {
             next() // request was via https, so do no special handling
