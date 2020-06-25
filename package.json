@@ -1,25 +1,25 @@
 {
   "name": "express-apigw-base-plugin",
-  "version": "1.3.1",
+  "version": "1.3.2",
   "description": "Express Gateway Base Plugin",
   "main": "manifest.js",
   "author": "NUTES/UEPB",
   "license": "Apache-2.0",
   "scripts": {
-    "test": "mocha --config test/.mocharc.yml test/unit/**/**-spec.js"
+    "test": "mocha test/unit/**/**-spec.js"
   },
   "dependencies": {
     "axios": "^0.19.2",
     "body-parser": "^1.19.0",
     "cors": "^2.8.5",
-    "helmet": "^3.22.0",
+    "helmet": "^3.23.2",
     "jsonwebtoken": "^8.5.1",
     "passport": "^0.4.1",
     "passport-jwt": "^4.0.0"
   },
   "devDependencies": {
     "chai": "^4.2.0",
-    "mocha": "^7.1.1",
+    "mocha": "^8.0.1",
     "sinon": "^9.0.2",
     "supertest": "^4.0.2",
     "express-gateway": "^1.16.10"
