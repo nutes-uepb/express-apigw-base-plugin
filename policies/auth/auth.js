@@ -17,7 +17,9 @@ module.exports = function (actionParams, authServiceTest, localServicesTest) {
 
         try {
             // 1. Run authentication on the account-service
-            const authResponse = await userService.post(actionParams.urlAuthService, req.body)
+            const authResponse = await userService.post(
+                actionParams.urlAuthService, req.body, {headers: req.headers}
+            )
             const accessToken = authResponse.data.access_token
 
             // 2. Read JWT public key
