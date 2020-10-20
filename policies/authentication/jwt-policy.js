@@ -16,6 +16,10 @@ module.exports = {
             },
             issuer: {
                 type: 'string'
+            },
+            excludeEndpointRegExp: {
+                type: 'array',
+                default: []
             }
         },
         required: ['issuer'],

@@ -2,6 +2,7 @@
 /**
  * Policy to validate JWT
  */
+const jwt = require('jsonwebtoken')
 const passportJWT = require('passport-jwt')
 const fs = require('fs')
 let passport = require('passport')
@@ -25,7 +26,7 @@ module.exports = function (actionParams, testContext) {
         secretOrKey: secretOrKey,
         issuer: actionParams.issuer
     }, (jwtPayload, done) => {
-        // At this point both the jwt signature, issuer and experation were validated
+        // At this point both the jwt signature, issuer and expiration were validated
         // In addition, we have the jwt payload decoded and we can access its attributes
 
         // User validation. We expect to receive the username in the jwt 'sub' field
@@ -49,10 +50,16 @@ module.exports = function (actionParams, testContext) {
     }))
 
     return (req, res, next) => {
-        passport.authenticate('jwt', {session: false}, (err, user, info) => {
+        passport.authenticate('jwt', {session: false}, async (err, user, info) => {
             if (user) {
                 req.user = user
-                next()
+                return next()
+            }
+
+            // Ignores access token failure or not provided according to excludeEndpointRegExp settings
+            if (await excludeEndpoints(req.originalUrl, actionParams.excludeEndpointRegExp)) {
+                req.user = getUserNotLogged(req)
+                return next()
             }
 
             if (info && info.message === 'No auth token') return res.status(401).send({
@@ -90,5 +97,38 @@ module.exports = function (actionParams, testContext) {
                 'redirect_link': '/auth'
             })
         })(req, res, next)
+    }
+}
+
+async function excludeEndpoints(endpoint, excludeRegExp) {
+    try {
+        for await (const elem of excludeRegExp) {
+            if (new RegExp(elem).test(endpoint)) return true
+        }
+    } catch (err) {
+        console.error('INTERNAL_ERROR - EXCLUDE ENDPOINT:', err)
+    }
+    return false
+}
+
+function getToken(req) {
+    try {
+        return req.headers['authorization'].split(' ')[1]
+    } catch (err) {
+        return undefined
+    }
+}
+
+function getUserNotLogged(req) {
+    const token = getToken(req)
+    if (token) return jwt.decode(token)
+
+    return {
+        sub: '',
+        sub_type: '',
+        iss: '',
+        iat: Math.floor(Date.now() / 1000),
+        scope: [],
+        exp: Math.floor((Date.now() + 60000) / 1000) // 1min
     }
 }
